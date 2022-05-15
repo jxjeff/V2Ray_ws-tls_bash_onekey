@@ -55,7 +55,7 @@ nginx_version="1.20.1"
 openssl_version="1.1.1k"
 jemalloc_version="5.2.1"
 old_config_status="off"
-# v2ray_plugin_version="$(wget -qO- "https://git.wej.cc/https://github.com/shadowsocks/v2ray-plugin/tags" | grep -E "/shadowsocks/v2ray-plugin/releases/tag/" | head -1 | sed -r 's/.*tag\/v(.+)\">.*/\1/')"
+# v2ray_plugin_version="$(wget -qO- "https://ghproxy.com/https://github.com/shadowsocks/v2ray-plugin/tags" | grep -E "/shadowsocks/v2ray-plugin/releases/tag/" | head -1 | sed -r 's/.*tag\/v(.+)\">.*/\1/')"
 
 #移动旧版本配置信息 对小于 1.1.0 版本适配
 [[ -f "/etc/v2ray/vmess_qr.json" ]] && mv /etc/v2ray/vmess_qr.json $v2ray_qr_config_file
@@ -308,7 +308,7 @@ web_camouflage() {
     rm -rf /home/wwwroot
     mkdir -p /home/wwwroot
     cd /home/wwwroot || exit
-    git clone https://git.wej.cc/https://github.com/wulabing/3DCEList.git
+    git clone https://ghproxy.com/https://github.com/wulabing/3DCEList.git
     judge "web 站点伪装"
 }
 v2ray_install() {
@@ -320,7 +320,7 @@ v2ray_install() {
     fi
     mkdir -p /root/v2ray
     cd /root/v2ray || exit
-    wget -N --no-check-certificate https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/v2ray.sh
+    wget -N --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/v2ray.sh
 
     if [[ -f v2ray.sh ]]; then
         rm -rf $v2ray_systemd_file
@@ -354,7 +354,7 @@ nginx_install() {
     judge "Nginx 下载"
     wget -nc --no-check-certificate https://www.openssl.org/source/openssl-${openssl_version}.tar.gz -P ${nginx_openssl_src}
     judge "openssl 下载"
-    wget -nc --no-check-certificate https://git.wej.cc/https://github.com/jemalloc/jemalloc/releases/download/${jemalloc_version}/jemalloc-${jemalloc_version}.tar.bz2 -P ${nginx_openssl_src}
+    wget -nc --no-check-certificate https://ghproxy.com/https://github.com/jemalloc/jemalloc/releases/download/${jemalloc_version}/jemalloc-${jemalloc_version}.tar.bz2 -P ${nginx_openssl_src}
     judge "jemalloc 下载"
 
     cd ${nginx_openssl_src} || exit
@@ -499,7 +499,7 @@ acme() {
 }
 v2ray_conf_add_tls() {
     cd /etc/v2ray || exit
-    wget --no-check-certificate https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/tls/config.json -O config.json
+    wget --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/tls/config.json -O config.json
     modify_path
     modify_alterid
     modify_inbound_port
@@ -507,7 +507,7 @@ v2ray_conf_add_tls() {
 }
 v2ray_conf_add_h2() {
     cd /etc/v2ray || exit
-    wget --no-check-certificate https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/http2/config.json -O config.json
+    wget --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/http2/config.json -O config.json
     modify_path
     modify_alterid
     modify_inbound_port
@@ -625,7 +625,7 @@ nginx_process_disabled() {
 #    judge "rc.local 配置"
 #}
 acme_cron_update() {
-    wget -N -P /usr/bin --no-check-certificate "https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/dev/ssl_update.sh"
+    wget -N -P /usr/bin --no-check-certificate "https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/dev/ssl_update.sh"
     if [[ $(crontab -l | grep -c "ssl_update.sh") -lt 1 ]]; then
       if [[ "${ID}" == "centos" ]]; then
           #        sed -i "/acme.sh/c 0 3 * * 0 \"/root/.acme.sh\"/acme.sh --cron --home \"/root/.acme.sh\" \
@@ -819,7 +819,7 @@ ssl_update_manuel() {
 }
 bbr_boost_sh() {
     [ -f "tcp.sh" ] && rm -rf ./tcp.sh
-    wget -N --no-check-certificate "https://git.wej.cc/https://raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+    wget -N --no-check-certificate "https://ghproxy.com/https://raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 }
 mtproxy_sh() {
     echo -e "${Error} ${RedBG} 功能维护，暂不可用 ${Font}"
@@ -923,7 +923,7 @@ install_v2_h2() {
 
 }
 update_sh() {
-    ol_version=$(curl -L -s https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/install.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
+    ol_version=$(curl -L -s https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/install.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
     echo "$ol_version" >$version_cmp
     echo "$shell_version" >>$version_cmp
     if [[ "$shell_version" < "$(sort -rV $version_cmp | head -1)" ]]; then
@@ -931,7 +931,7 @@ update_sh() {
         read -r update_confirm
         case $update_confirm in
         [yY][eE][sS] | [yY])
-            wget -N --no-check-certificate https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/install.sh
+            wget -N --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/install.sh
             echo -e "${OK} ${GreenBG} 更新完成 ${Font}"
             exit 0
             ;;
@@ -1019,7 +1019,7 @@ menu() {
         install_v2_h2
         ;;
     3)
-        bash <(curl -L -s https://git.wej.cc/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/v2ray.sh)
+        bash <(curl -L -s https://ghproxy.com/https://raw.githubusercontent.com/jxjeff/V2Ray_ws-tls_bash_onekey/${github_branch}/v2ray.sh)
         ;;
     4)
         read -rp "请输入UUID:" UUID
