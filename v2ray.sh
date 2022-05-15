@@ -254,7 +254,7 @@ get_version() {
         TMP_FILE="$(mktemp)"
         install_software curl
         # DO NOT QUOTE THESE `${PROXY}` VARIABLES!
-        if ! curl ${PROXY} -o "$TMP_FILE" 'https://ghproxy.com/https://github.com/repos/v2fly/v2ray-core/releases/latest'; then
+        if ! curl ${PROXY} -o "$TMP_FILE" 'https://git.wej.cc/https://github.com/repos/v2fly/v2ray-core/releases/latest'; then
             rm "$TMP_FILE"
             echo 'error: Failed to get release list, please check your network.'
             exit 1
@@ -300,7 +300,7 @@ get_version() {
 
 download_v2ray() {
     mkdir "$TMP_DIRECTORY"
-    DOWNLOAD_LINK="https://ghproxy.com/https://github.com/v2fly/v2ray-core/releases/download/v4.44.0/v2ray-linux-$MACHINE.zip"
+    DOWNLOAD_LINK="https://git.wej.cc/https://github.com/v2fly/v2ray-core/releases/download/v4.44.0/v2ray-linux-$MACHINE.zip"
     echo "Downloading V2Ray archive: $DOWNLOAD_LINK"
     if ! curl ${PROXY} -L -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
         echo 'error: Download failed! Please check your network or try again.'
